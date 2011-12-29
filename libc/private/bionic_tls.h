@@ -99,7 +99,8 @@ extern int __set_tls(void *ptr);
        asm ("mrc p15, 0, r0, c13, c0, 3" : "=r"(__val) ); \
        (volatile void*)__val; })
 #  else /* !HAVE_ARM_TLS_REGISTER */
-#    define __get_tls() ( *((volatile void **) 0xffff0ff0) )
+typedef void* (__get_tls_t)(void);
+static const __get_tls_t* __get_tls = (const __get_tls_t *) 0xffff0fe0;
 #  endif
 #else
 extern void*  __get_tls( void );
