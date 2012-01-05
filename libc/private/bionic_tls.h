@@ -100,7 +100,7 @@ extern int __set_tls(void *ptr);
  * C library, because we don't know where the corresponding code
  * is going to run.
  */
-#  ifdef LIBC_STATIC
+#  if defined(LIBC_STATIC) || ! defined(HAVE_ARM_TLS_REGISTER)
 
 /* Use the kernel helper in static C library. */
   typedef volatile void* (__kernel_get_tls_t)(void);
